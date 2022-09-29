@@ -2,8 +2,8 @@ package com.towertex.tmdbapi
 
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
-import com.towertex.tmdbapi.data.TMDBApiException
-import com.towertex.tmdbapi.data.TMDBError
+import com.towertex.tmdbapi.model.TMDBApiException
+import com.towertex.tmdbapi.model.TMDBError
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.ResponseBody
@@ -13,6 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
+//The custom retrofit call is used to have access the other parts of the call (e.g. header) and to parse the error response
 class TMDBCall<TResponse>(private val original: Call<TResponse>) : Call<TResponse> {
 
     private fun readJsonBody(responseBody: ResponseBody?): TMDBError? = when {

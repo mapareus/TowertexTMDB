@@ -1,6 +1,6 @@
 package com.towertex.tmdbapi.services
 
-import com.towertex.tmdbapi.data.ConfigurationResponse
+import com.towertex.tmdbapi.model.ConfigurationResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

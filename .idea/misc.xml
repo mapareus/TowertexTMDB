@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/drawable/divider.xml" value="0.1" />
         <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/activity_main.xml" value="0.20742753623188406" />
         <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/content_main.xml" value="0.20742753623188406" />
+        <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/fragment_browse.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/fragment_detail.xml" value="0.20652173913043478" />
         <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/fragment_first.xml" value="0.20742753623188406" />
         <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/fragment_second.xml" value="0.20742753623188406" />
+        <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/row_item.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/row_item_error.xml" value="0.1" />
+        <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/layout/row_item_loading.xml" value="0.1339918946301925" />
         <entry key="..\:/Users/mapar/AndroidProjects/TowertexTMDB/app/src/main/res/menu/menu_main.xml" value="0.2755208333333333" />
       </map>
     </option>

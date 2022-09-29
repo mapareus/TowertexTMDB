@@ -1,6 +1,6 @@
 package com.towertex.tmdbapi.services
 
-import com.towertex.tmdbapi.data.TrendingResponse
+import com.towertex.tmdbapi.model.TrendingResponse
 import retrofit2.Call
 
 @Suppress("unused")
@@ -17,7 +17,6 @@ interface Trending {
     fun trendingGet(
         mediaType: String,
         timeWindow: String,
-        accessToken: String,
         page: Int = 1
     ): Call<TrendingResponse>
 }

@@ -1,3 +1,8 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+<!--    global-->
+    <dimen name="default_margin">16dp</dimen>
+
+<!--    row-->
+    <dimen name="progress_size">32dp</dimen>
+    <dimen name="item_min_height">200dp</dimen>
 </resources>

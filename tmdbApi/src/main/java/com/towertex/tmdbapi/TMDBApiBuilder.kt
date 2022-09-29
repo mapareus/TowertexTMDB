@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TMDBApiBuilder @JvmOverloads constructor (
     private val endpoint: String,
+    private val token: String,
     private val httpLoggingInterceptor: HttpLoggingInterceptor = defaultHttpLoggingInterceptor
 ) {
     companion object {
@@ -33,5 +34,5 @@ class TMDBApiBuilder @JvmOverloads constructor (
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
-    fun build(): TMDBApi = TMDBApi(buildRetrofit())
+    fun build(): TMDBApi = TMDBApi(buildRetrofit(), token)
 }

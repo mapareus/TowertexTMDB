@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk compile_sdk_version
+
+    defaultConfig {
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    api project(path: ':tmdbApi')
+
+    //room database
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //gson used to store list of strings to Room
+    implementation "com.google.code.gson:gson:$retrofit_version"
+
+    //required to be able to use retrofit in this module
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines_version"
+
+    //required to be able to construct TMDBApi in tests
+    androidTestImplementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    //Instrumentation tests dependencies
+    androidTestImplementation "androidx.test:runner:$android_test_version"
+    androidTestImplementation "androidx.test:rules:$android_test_version"
+    androidTestImplementation "androidx.test.ext:junit:$android_test_junit_version"
+}

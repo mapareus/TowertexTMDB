@@ -1,63 +1,50 @@
 package com.towertex.tmdb
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import com.towertex.tmdb.databinding.ActivityMainBinding
+import com.towertex.tmdb.fragments.BrowseFragment
+import com.towertex.tmdb.navigation.ActivityContract
+import com.towertex.tmdb.navigation.NavigationLocation
+import com.towertex.tmdb.navigation.NavigatorContract
+import com.towertex.tmdb.navigation.internalNavigate
+import com.towertex.tmdb.viewModels.MainActivityViewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.ScopeActivity
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-//eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTk1NDA5ZWU2NDdjOTVlNjMyZDNiMzJlYzc3ODBjZSIsInN1YiI6IjYzMmMzN2Y5YzhmM2M0MDA4M2VhYmM1NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dyUD9h6YUuIcRbx-pQY0HmCUc8xHd6qfBEcMDyFbd6I
+class MainActivity : ScopeActivity(), ActivityContract {
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private val navigator: NavigatorContract by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            lifecycleOwner = this@MainActivity
+            viewModel = getViewModel<MainActivityViewModel>()
+        }
         setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
-        }
+        binding.viewModel?.onCreate()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    override fun onPause() {
+        navigator.setActivityContract(null)
+        super.onPause()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+    override fun onResume() {
+        super.onResume()
+        navigator.setActivityContract(this)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    override fun navigate(fragmentFactory: () -> Fragment, location: NavigationLocation, tag: String?) {
+        internalNavigate(fragmentFactory, location, tag)
+    }
+
+    override fun onBackPressed() {
+        @Suppress("USELESS_IS_CHECK")
+        if(binding.fullscreenContainer.getFragment<BrowseFragment>() is BrowseFragment) return
+        super.onBackPressed()
     }
 }
