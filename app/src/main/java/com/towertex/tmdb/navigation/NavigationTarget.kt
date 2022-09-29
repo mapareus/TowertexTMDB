@@ -1,4 +1,4 @@
-package com.towertex.tmdb.model
+package com.towertex.tmdb.navigation
 
 data class NavigationTarget(
     val action: NavigationAction,

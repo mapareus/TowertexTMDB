@@ -3,8 +3,8 @@ package com.towertex.tmdb.viewModels
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.towertex.tmdb.R
-import com.towertex.tmdb.model.NavigationAction
-import com.towertex.tmdb.model.NavigationTarget
+import com.towertex.tmdb.navigation.NavigationAction
+import com.towertex.tmdb.navigation.NavigationTarget
 import com.towertex.tmdb.navigation.NavigatorContract
 import com.towertex.tmdb.repositories.ResourceRepositoryContract
 import com.towertex.tmdbmodel.model.RowItem

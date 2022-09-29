@@ -2,8 +2,6 @@ package com.towertex.tmdb.navigation
 
 import com.towertex.tmdb.fragments.BrowseFragment
 import com.towertex.tmdb.fragments.DetailFragment
-import com.towertex.tmdb.model.NavigationAction
-import com.towertex.tmdb.model.NavigationTarget
 
 class Navigator: NavigatorContract {
     private var pendingNavigationTarget: NavigationTarget? = null
