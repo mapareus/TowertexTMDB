@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.towertex.tmdb.R
 import com.towertex.tmdb.adapters.RowAdapter
 import com.towertex.tmdb.adapters.RowStateAdapter
@@ -47,12 +48,14 @@ class BrowseFragment : ScopeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecycler()
     }
 
     private fun setupRecycler() {
-        val aLayoutManager = LinearLayoutManager(requireContext())
+        val isVertical: Boolean = resources.getBoolean(R.bool.row_vertical)
+        val aLayoutManager =
+            if (isVertical) LinearLayoutManager(requireContext())
+            else LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         val itemDividerDecoration = DividerItemDecoration(context, aLayoutManager.orientation).apply {
             ContextCompat.getDrawable(requireContext(), R.drawable.divider)?.also { setDrawable(it) }
         }

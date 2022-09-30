@@ -38,7 +38,7 @@ val viewModelModule = module {
     }
 
     scope<BrowseFragment> {
-        viewModel { BrowseFragmentViewModel(resourceRepository = get(), navigator = get(), model = get()) }
+        viewModel { BrowseFragmentViewModel(resourceRepository = get(), model = get()) }
     }
 
     scope<DetailFragment> {

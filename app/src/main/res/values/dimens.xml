@@ -5,4 +5,7 @@
 <!--    row-->
     <dimen name="progress_size">32dp</dimen>
     <dimen name="item_min_height">200dp</dimen>
+
+    <bool name="row_vertical">true</bool>
+
 </resources>

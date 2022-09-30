@@ -1,13 +1,15 @@
 package com.towertex.tmdb.navigation
 
+import android.util.Log
 import com.towertex.tmdb.fragments.BrowseFragment
 import com.towertex.tmdb.fragments.DetailFragment
 
 class Navigator: NavigatorContract {
-    private var pendingNavigationTarget: NavigationTarget? = null
+    override var pendingNavigationTarget: NavigationTarget? = null
     private var navigatorContract: ActivityContract? = null
 
     override fun setActivityContract(contract: ActivityContract?) {
+        Log.d("Navigator", "setActivityContract: $contract pending: $pendingNavigationTarget")
         navigatorContract = contract
         pendingNavigationTarget?.also { navigate(it) }
     }
@@ -22,6 +24,7 @@ class Navigator: NavigatorContract {
     }
 
     private fun ActivityContract.navigate(target: NavigationTarget) {
+        Log.d("Navigator", "navigate: $target")
         when (target.action) {
             NavigationAction.BROWSE -> {
                 navigate(

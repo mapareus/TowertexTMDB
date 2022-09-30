@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.towertex.tmdb.R
 import com.towertex.tmdb.adapters.RowPagingSource
-import com.towertex.tmdb.navigation.NavigatorContract
 import com.towertex.tmdb.repositories.ResourceRepositoryContract
 import com.towertex.tmdbmodel.TMDBModel
 import com.towertex.tmdbmodel.model.RowItem
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
 
 class BrowseFragmentViewModel(
     val resourceRepository: ResourceRepositoryContract,
-    val navigator: NavigatorContract,
     val model: TMDBModel
 ): ViewModel() {
 

@@ -1,3 +1,5 @@
 <resources>
     <dimen name="default_margin">16dp</dimen>
+
+    <bool name="row_vertical">false</bool>
 </resources>
