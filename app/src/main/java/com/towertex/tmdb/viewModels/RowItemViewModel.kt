@@ -1,5 +1,6 @@
 package com.towertex.tmdb.viewModels
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.towertex.tmdb.R
@@ -21,6 +22,7 @@ class RowItemViewModel(
     val glideUrl: String? = resourceRepository.getGlideUrl(item.posterPath)
 
     val onClickListener = View.OnClickListener {
+        Log.d("Navigator", "RowItemViewModel onClick")
         navigator.navigate(
             target = NavigationTarget(
                 action = NavigationAction.DETAIL,

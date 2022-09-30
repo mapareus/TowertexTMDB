@@ -3,11 +3,7 @@ package com.towertex.tmdb
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.towertex.tmdb.databinding.ActivityMainBinding
-import com.towertex.tmdb.fragments.BrowseFragment
-import com.towertex.tmdb.navigation.ActivityContract
-import com.towertex.tmdb.navigation.NavigationLocation
-import com.towertex.tmdb.navigation.NavigatorContract
-import com.towertex.tmdb.navigation.internalNavigate
+import com.towertex.tmdb.navigation.*
 import com.towertex.tmdb.viewModels.MainActivityViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeActivity
@@ -16,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class MainActivity : ScopeActivity(), ActivityContract {
 
     private lateinit var binding: ActivityMainBinding
-    private val navigator: NavigatorContract by inject()
+    internal val navigator: NavigatorContract by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +39,6 @@ class MainActivity : ScopeActivity(), ActivityContract {
     }
 
     override fun onBackPressed() {
-        @Suppress("USELESS_IS_CHECK")
-        if(binding.fullscreenContainer.getFragment<BrowseFragment>() is BrowseFragment) return
-        super.onBackPressed()
+        internalOnBackPressed()
     }
 }
