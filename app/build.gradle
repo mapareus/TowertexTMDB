@@ -26,6 +26,7 @@ android {
         dataBinding true
         viewBinding true
     }
+    namespace 'com.towertex.tmdb'
 }
 
 dependencies {
