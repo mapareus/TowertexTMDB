@@ -2,7 +2,6 @@ package com.towertex.tmdbmodel.services
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.towertex.tmdbapi.TMDBApi
 import com.towertex.tmdbapi.model.ConfigurationResponse
 import com.towertex.tmdbmodel.model.Configuration
 import com.towertex.tmdbmodel.room.TMDBDao

@@ -1,6 +1,5 @@
 package com.towertex.tmdbmodel
 
-import com.towertex.tmdbapi.TMDBApi
 import com.towertex.tmdbmodel.room.TMDBDatabase
 import com.towertex.tmdbmodel.services.ConfigurationModel
 import com.towertex.tmdbmodel.services.ConfigurationModelContract

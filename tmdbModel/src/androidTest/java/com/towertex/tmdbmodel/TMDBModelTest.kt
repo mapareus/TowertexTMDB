@@ -1,18 +1,12 @@
 package com.towertex.tmdbmodel
 
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.towertex.tmdbapi.TMDBApi
-import com.towertex.tmdbapi.TMDBApiBuilder
-import com.towertex.tmdbapi.model.TMDBApiException
-import com.towertex.tmdbapi.services.Trending
-import com.towertex.tmdbmodel.room.TMDBDao
 import com.towertex.tmdbmodel.room.TMDBDatabase
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
 
@@ -23,6 +17,7 @@ class TMDBModelTest {
         private const val BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTk1NDA5ZWU2NDdjOTVlNjMyZDNiMzJlYzc3ODBjZSIsInN1YiI6IjYzMmMzN2Y5YzhmM2M0MDA4M2VhYmM1NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dyUD9h6YUuIcRbx-pQY0HmCUc8xHd6qfBEcMDyFbd6I"
         private const val EXPECTED_PAGE_SIZE = 20
 
+//        private lateinit var api: TMDBApi
         private lateinit var api: TMDBApi
         private lateinit var db: TMDBDatabase
         private lateinit var model: TMDBModel
@@ -37,11 +32,12 @@ class TMDBModelTest {
 
     @Before
     fun init(): Unit = runBlocking {
-        api = TMDBApiBuilder(BASE_URL, BEARER_TOKEN).build()
+//        api = TMDBApiBuilder(BASE_URL, BEARER_TOKEN).build()
+//        api = KtorApi.create(BEARER_TOKEN, BASE_URL, LogLevel.ALL,)
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         db = TMDBDatabase.buildDatabase(appContext)
         db.tmdbDao.deleteAllItems()
-        model = TMDBModel(api, db)
+//        model = TMDBModel(api, db)
     }
 
     @Test

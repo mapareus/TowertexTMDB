@@ -3,7 +3,6 @@ package com.towertex.tmdb.adapters
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.towertex.tmdbapi.services.Trending
 import com.towertex.tmdbmodel.TMDBModel
 import com.towertex.tmdbmodel.model.RowItem
 import kotlinx.coroutines.Dispatchers

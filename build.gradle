@@ -7,6 +7,7 @@ buildscript {
         kotlin_version = '1.7.10'
         koin_version = '3.2.0'
 
+        ktor_version = '2.3.12'
         retrofit_version = '2.9.0'
         okhttp_version = '4.9.3'
         retrofit_coroutines_version = '0.9.2'
@@ -27,12 +28,12 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        //TODO manifest is not parsed correctly in higher gradle versions ... check later
         classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }

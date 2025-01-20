@@ -1,18 +1,22 @@
 package com.towertex.tmdbapi.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class MovieListResultObject(
-    val poster_path: String?,
     val adult: Boolean,
-    val overview: String,
-    val release_date: String,
-    val genre_ids: List<Int>,
+    val backdrop_path: String? = null,
     val id: Int,
-    val original_title: String,
+    val title: String? = null,
     val original_language: String,
-    val title: String,
-    val backdrop_path: String?,
+    val original_title: String? = null,
+    val overview: String,
+    val poster_path: String?,
+    val media_type: String,
+    val genre_ids: List<Int>,
     val popularity: Float,
+    val release_date: String? = null,
+    val video: Boolean = false,
+    val vote_average: Float,
     val vote_count: Int,
-    val video: Boolean,
-    val vote_average: Float
     )

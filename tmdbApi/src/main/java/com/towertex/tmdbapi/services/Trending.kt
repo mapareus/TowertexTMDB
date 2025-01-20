@@ -1,22 +1,27 @@
 package com.towertex.tmdbapi.services
 
+import com.towertex.tmdbapi.TMDBApiResult
 import com.towertex.tmdbapi.model.TrendingResponse
-import retrofit2.Call
 
-@Suppress("unused")
 interface Trending {
-    companion object {
-        const val MEDIA_TYPE_ALL = "all"
-        const val MEDIA_TYPE_MOVIE = "movie"
-        const val MEDIA_TYPE_tv = "tv"
-        const val MEDIA_TYPE_PERSON = "person"
-        const val TIME_WINDOW_DAY = "day"
-        const val TIME_WINDOW_WEEK = "week"
+
+    @Suppress("unused")
+    enum class MediaType(val value: String) {
+        ALL("all"),
+        MOVIE("movie"),
+        TV("tv"),
+        PERSON("person")
     }
 
-    fun trendingGet(
-        mediaType: String,
-        timeWindow: String,
+    @Suppress("unused")
+    enum class TimeWindow(val value: String) {
+        DAY("day"),
+        WEEK("week")
+    }
+
+    suspend fun trendingGet(
+        mediaType: MediaType,
+        timeWindow: TimeWindow,
         page: Int = 1
-    ): Call<TrendingResponse>
+    ): TMDBApiResult<TrendingResponse>
 }

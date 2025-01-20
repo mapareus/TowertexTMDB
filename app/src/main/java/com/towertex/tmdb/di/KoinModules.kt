@@ -11,7 +11,6 @@ import com.towertex.tmdb.viewModels.BrowseFragmentViewModel
 import com.towertex.tmdb.viewModels.DetailFragmentViewModel
 import com.towertex.tmdb.viewModels.MainActivityViewModel
 import com.towertex.tmdb.viewModels.RowItemViewModel
-import com.towertex.tmdbapi.TMDBApiBuilder
 import com.towertex.tmdbmodel.TMDBModel
 import com.towertex.tmdbmodel.model.RowItem
 import com.towertex.tmdbmodel.room.TMDBDatabase

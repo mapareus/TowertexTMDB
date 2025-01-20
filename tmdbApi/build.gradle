@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -15,7 +16,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
+            testCoverageEnabled false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -25,13 +30,13 @@ android {
 
 dependencies {
 
-    //networking
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.google.code.gson:gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    //ktor
+    implementation "io.ktor:ktor-client-core:$ktor_version"
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+    implementation "io.ktor:ktor-client-logging:$ktor_version"
+    implementation "io.ktor:ktor-client-content-negotiation:$ktor_version"
+    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
 
     //JUnit
     testImplementation "junit:junit:$junit_version"
-    testImplementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines_version"
 }
