@@ -1,38 +1,55 @@
 package com.towertex.tmdbapi
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 
-class TMDBApiBuilder @JvmOverloads constructor (
-    private val endpoint: String,
+class TMDBApiBuilder(
     private val token: String,
-    private val httpLoggingInterceptor: HttpLoggingInterceptor = defaultHttpLoggingInterceptor
+    private val baseUrl: String
 ) {
-    companion object {
+    private var logLevel: LogLevel = LogLevel.HEADERS
+    private var logger: Logger? = null
 
-        private val defaultHttpLoggingInterceptor: HttpLoggingInterceptor
-            get() = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+    fun setLogAll() = this.apply { logLevel = LogLevel.ALL }
+    fun setLogBody() = this.apply { logLevel = LogLevel.BODY }
+    fun setLogHeaders() = this.apply { logLevel = LogLevel.HEADERS }
+    fun setLogInfo() = this.apply { logLevel = LogLevel.INFO }
+    fun setLogNone() = this.apply { logLevel = LogLevel.NONE }
+    fun setDebugLogger() = this.apply { logger = object : Logger {
+        override fun log(message: String) {
+            println(message)
+        }
+    } }
+    fun setReleaseLogger() = this.apply { logger = null }
 
-        private val gson: Gson
-            get() = GsonBuilder().create()
+    fun build(): TMDBApi = TMDBApi(getClient(logLevel, logger), token, baseUrl)
+
+    private fun getClient(
+        aLogLevel: LogLevel,
+        aLogger: Logger?
+    ): HttpClient {
+        return HttpClient(Android) {
+            install(Logging) {
+                level = aLogLevel
+                aLogger?.also { logger = it }
+            }
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        prettyPrint = true
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                        explicitNulls = false
+                    }
+                )
+            }
+
+        }
     }
-
-    private fun getHttpClient(
-        httpLoggingInterceptor: Interceptor
-    ): OkHttpClient = OkHttpClient.Builder()
-        .addNetworkInterceptor(httpLoggingInterceptor)
-        .build()
-
-    private fun buildRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl(endpoint)
-        .client(getHttpClient(httpLoggingInterceptor))
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-
-    fun build(): TMDBApi = TMDBApi(buildRetrofit(), token)
 }

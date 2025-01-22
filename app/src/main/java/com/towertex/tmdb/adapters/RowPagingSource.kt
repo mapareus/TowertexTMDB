@@ -17,7 +17,7 @@ class RowPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RowItem> {
         return try {
             val nextPageNumber: Int = params.key ?: 0
-            val response = withContext(Dispatchers.IO) { model.trendingGet(Trending.MEDIA_TYPE_MOVIE, Trending.TIME_WINDOW_WEEK, nextPageNumber+1).first() }
+            val response = withContext(Dispatchers.IO) { model.trendingGet(Trending.MediaType.ALL, Trending.TimeWindow.WEEK, nextPageNumber+1).first() }
             //TODO Timber
             Log.d("data", "$nextPageNumber ... ${response.size}")
             LoadResult.Page(

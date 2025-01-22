@@ -1,28 +1,23 @@
 package com.towertex.tmdbmodel.services
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.towertex.tmdbapi.Success
 import com.towertex.tmdbapi.TMDBApi
 import com.towertex.tmdbapi.model.MovieListResultObject
+import com.towertex.tmdbapi.services.Trending
 import com.towertex.tmdbmodel.model.RowItem
 import com.towertex.tmdbmodel.room.TMDBDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.lang.reflect.Type
 
 class TrendingModel(
     private val api: TMDBApi,
     private val dao: TMDBDao
 ) : TrendingModelContract {
 
-    companion object {
-        private val type: Type = object : TypeToken<List<Int?>?>() {}.type
-    }
-
-    override fun trendingGet(mediaType: String, timeWindow: String, page: Int): Flow<List<RowItem>> = flow {
+    override fun trendingGet(mediaType: Trending.MediaType, timeWindow: Trending.TimeWindow, page: Int): Flow<List<RowItem>> = flow {
         val currentData = dao.getPage(page)
         if (currentData.isNotEmpty()) emit(currentData)
-        val newData = api.trendingGet(mediaType, timeWindow, page).execute().body()?.results ?: emptyList()
+        val newData = (api.trendingGet(mediaType, timeWindow, page) as? Success)?.data?.results ?: emptyList()
         if (newData.isEmpty()) {
             if (currentData.isNotEmpty()) return@flow
             emit(emptyList())
@@ -50,7 +45,7 @@ class TrendingModel(
         adult,
         overview,
         release_date,
-        Gson().toJson(genre_ids, type),
+        genre_ids.toJson(),
         id,
         original_title,
         original_language,

@@ -16,24 +16,21 @@ class RowAdapter : PagingDataAdapter<RowItem, RowAdapter.RowItemViewHolder>(RowI
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RowItemViewHolder {
-        return RowItemViewHolder(
-            RowItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    ) = RowItemViewHolder(
+        RowItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
-    }
+    )
 
     override fun onBindViewHolder(holder: RowItemViewHolder, position: Int) {
-        val item = getItem(position)
-        item?.let { holder.bindMovieListResultObject(it) }
+        getItem(position)?.let { holder.bindMovieListResultObject(it) }
     }
 
     inner class RowItemViewHolder(
         private val binding: RowItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ): RecyclerView.ViewHolder(binding.root) {
 
         fun bindMovieListResultObject(item: RowItem) = with(binding) {
             viewModel = get { parametersOf(item) } //Koin injection
@@ -41,12 +38,8 @@ class RowAdapter : PagingDataAdapter<RowItem, RowAdapter.RowItemViewHolder>(RowI
     }
 
     object RowItemComparator : DiffUtil.ItemCallback<RowItem>() {
-        override fun areItemsTheSame(oldItem: RowItem, newItem: RowItem): Boolean {
-            return oldItem.id == newItem.id
-        }
+        override fun areItemsTheSame(oldItem: RowItem, newItem: RowItem) = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: RowItem, newItem: RowItem): Boolean {
-            return oldItem == newItem
-        }
+        override fun areContentsTheSame(oldItem: RowItem, newItem: RowItem) = areItemsTheSame(oldItem, newItem)
     }
 }

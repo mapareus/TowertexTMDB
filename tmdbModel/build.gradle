@@ -1,10 +1,12 @@
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
+    namespace 'com.towertex.tmdbmodel'
     compileSdk compile_sdk_version
 
     defaultConfig {
@@ -21,27 +23,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.towertex.tmdbmodel'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 }
 
 dependencies {
     api project(path: ':tmdbApi')
 
     //room database
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
-    //gson used to store list of strings to Room
-    implementation "com.google.code.gson:gson:$retrofit_version"
-
-    //required to be able to use retrofit in this module
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines_version"
-
-    //required to be able to construct TMDBApi in tests
-    androidTestImplementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation libs.room.ktx
+    ksp libs.room.compiler
+    implementation libs.kotlinx.serialization
 
     //Instrumentation tests dependencies
-    androidTestImplementation "androidx.test:runner:$android_test_version"
-    androidTestImplementation "androidx.test:rules:$android_test_version"
-    androidTestImplementation "androidx.test.ext:junit:$android_test_junit_version"
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
 }

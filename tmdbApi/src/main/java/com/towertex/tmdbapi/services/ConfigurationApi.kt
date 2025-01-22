@@ -1,17 +1,23 @@
 package com.towertex.tmdbapi.services
 
-import com.towertex.tmdbapi.TMDBCall
 import com.towertex.tmdbapi.model.ConfigurationResponse
-import retrofit2.Call
-import retrofit2.Retrofit
+import com.towertex.tmdbapi.toResult
+import io.ktor.client.HttpClient
+import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.get
+import io.ktor.client.request.url
 
 class ConfigurationApi(
-    retrofit: Retrofit,
-    val token: String
+    private val httpClient: HttpClient,
+    private val token: String,
+    private val baseUrl: String
 ): Configuration {
-    private val services = retrofit.create(ConfigurationServices::class.java)
+    override suspend fun configurationGet(
 
-    override fun configurationGet(): Call<ConfigurationResponse> = TMDBCall(
-        services.get("Bearer $token")
-    )
+    ) = httpClient.toResult<ConfigurationResponse> {
+        get {
+            url(baseUrl + "configuration")
+            bearerAuth(token)
+        }
+    }
 }

@@ -1,8 +1,10 @@
 package com.towertex.tmdbapi.model
 
-data class TMDBError(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ErrorResponse(
     val status_message: String,
-    val error_message: String?,
     val success: Boolean,
     val status_code: Int
 )

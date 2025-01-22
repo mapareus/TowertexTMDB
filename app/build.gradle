@@ -1,10 +1,11 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt) //this is necessary for data binding
 }
 
 android {
+    namespace 'com.towertex.tmdb'
     compileSdk compile_sdk_version
 
     defaultConfig {
@@ -22,37 +23,43 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
     buildFeatures {
+        buildConfig = true //enables if (BuildConfig.DEBUG) in code
         dataBinding true
         viewBinding true
     }
-    namespace 'com.towertex.tmdb'
 }
 
 dependencies {
     implementation project(path: ':tmdbModel')
 
     //androidX
-    implementation "androidx.core:core-ktx:$androidx_core_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation libs.androidx.core
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
 
     //material design
-    implementation "com.google.android.material:material:$material_version"
+    implementation libs.material
 
     //Koin
-    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation libs.koin
 
     //ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$view_model_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$view_model_version"
+    implementation libs.viewmodel
+    implementation libs.viewmodel.ktx
 
     //paging
-    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation libs.paging
 
     //Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-
-    //required by KoinModules to be able to create TMDBApi
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation libs.glide
 }
