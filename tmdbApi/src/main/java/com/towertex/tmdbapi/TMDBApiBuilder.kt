@@ -11,10 +11,23 @@ import kotlinx.serialization.json.Json
 
 class TMDBApiBuilder(
     private val token: String,
-    private val baseUrl: String,
-    private val logLevel: LogLevel,
-    private val logger: Logger? = null
+    private val baseUrl: String
 ) {
+    private var logLevel: LogLevel = LogLevel.HEADERS
+    private var logger: Logger? = null
+
+    fun setLogAll() = this.apply { logLevel = LogLevel.ALL }
+    fun setLogBody() = this.apply { logLevel = LogLevel.BODY }
+    fun setLogHeaders() = this.apply { logLevel = LogLevel.HEADERS }
+    fun setLogInfo() = this.apply { logLevel = LogLevel.INFO }
+    fun setLogNone() = this.apply { logLevel = LogLevel.NONE }
+    fun setDebugLogger() = this.apply { logger = object : Logger {
+        override fun log(message: String) {
+            println(message)
+        }
+    } }
+    fun setReleaseLogger() = this.apply { logger = null }
+
     fun build(): TMDBApi = TMDBApi(getClient(logLevel, logger), token, baseUrl)
 
     private fun getClient(
@@ -32,7 +45,7 @@ class TMDBApiBuilder(
                         prettyPrint = true
                         isLenient = true
                         ignoreUnknownKeys = true
-//                    explicitNulls = false //TODO upgrade to KTor 3.0.3
+                        explicitNulls = false
                     }
                 )
             }

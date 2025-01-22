@@ -1,0 +1,51 @@
+[versions]
+agp = "8.7.3"
+kotlin = "2.1.0"
+kotlinKsp = "2.1.0-1.0.29"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+ktor = "3.0.3"
+espressoCore = "3.6.1"
+room = "2.6.1"
+kotlinSerialization = "1.8.0"
+androidXCore = "1.9.0"
+androidXAppcompat = "1.5.1"
+androidXConstraintLayout = "2.1.4"
+material = "1.8.0-alpha01"
+koin = "3.2.0"
+viewModel = "2.5.1"
+paging = "3.2.0-alpha02"
+glide = "4.13.2"
+
+[libraries]
+#TMDPApi
+ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+#TMDBModel
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+#TMDBApp
+androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidXAppcompat" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidXConstraintLayout" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "viewModel" }
+viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModel" }
+paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }

@@ -3,6 +3,7 @@ package com.towertex.tmdb.adapters
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.towertex.tmdbapi.services.Trending
 import com.towertex.tmdbmodel.TMDBModel
 import com.towertex.tmdbmodel.model.RowItem
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ class RowPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RowItem> {
         return try {
             val nextPageNumber: Int = params.key ?: 0
-            val response = withContext(Dispatchers.IO) { model.trendingGet(Trending.MEDIA_TYPE_MOVIE, Trending.TIME_WINDOW_WEEK, nextPageNumber+1).first() }
+            val response = withContext(Dispatchers.IO) { model.trendingGet(Trending.MediaType.ALL, Trending.TimeWindow.WEEK, nextPageNumber+1).first() }
             //TODO Timber
             Log.d("data", "$nextPageNumber ... ${response.size}")
             LoadResult.Page(

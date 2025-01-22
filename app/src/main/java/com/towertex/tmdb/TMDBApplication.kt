@@ -10,12 +10,6 @@ import org.koin.core.logger.Level
 
 class TMDBApplication : Application() {
 
-    init {
-        if (BuildConfig.DEBUG) {
-            //Timber.plant(Timber.DebugTree())
-        }
-    }
-
     override fun onCreate() {
         super.onCreate()
 

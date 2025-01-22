@@ -5,8 +5,6 @@ import com.towertex.tmdbapi.model.ConfigurationResponse
 import com.towertex.tmdbapi.model.TrendingResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
-import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logger
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerializationException
@@ -29,11 +27,17 @@ class TMDBApiTest {
 
     @Before
     fun init() {
-        val logger = object: Logger {
-            override fun log(message: String) { println(message) }
-        }
-        api = TMDBApiBuilder(BEARER_TOKEN, BASE_URL, LogLevel.ALL, logger).build()
-        wrongApi = TMDBApiBuilder("wrong bearer", BASE_URL, LogLevel.ALL, logger).build()
+        api = TMDBApiBuilder(BEARER_TOKEN, BASE_URL)
+            .setLogAll()
+            .setDebugLogger()
+            .build()
+        wrongApi = TMDBApiBuilder("wrong bearer", BASE_URL)
+            .setLogInfo()
+            .setLogHeaders()
+            .setLogBody()
+            .setLogNone()
+            .setReleaseLogger()
+            .build()
     }
 
     @Test
