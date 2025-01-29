@@ -20,10 +20,9 @@ class BrowseFragmentViewModel(
 
     val spacing: Int = resourceRepository.getDimensionPixelSize(R.dimen.default_margin)
 
-    fun getItems(): Flow<PagingData<RowItem>> {
-        return Pager(
+    fun getItems(): Flow<PagingData<RowItem>> =
+        Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = { RowPagingSource(model = model) }
         ).flow.cachedIn(viewModelScope)
-    }
 }

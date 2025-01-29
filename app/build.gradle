@@ -62,4 +62,9 @@ dependencies {
 
     //Glide
     implementation libs.glide
+
+    //MockK unit testing
+    testImplementation libs.mockk
+    testImplementation libs.junit
+    testImplementation libs.kotlinx.coroutines.test
 }
