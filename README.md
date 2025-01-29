@@ -6,18 +6,17 @@ features:
   - model module to handle business logic
 - api module 
   - test coverage via JUnit
-  - Retrofit
-  - custom Call to handle non-standard responses
+  - networking via Ktor
   - services separated via delegation
 - model module
   - test coverage via AndroidInstrumentation
-  - Room
-  - SigleSourceOfTruth architecture
-- Dependecy injection
-  - Koin
+  - persistence via Room
+  - Single Source Of Truth architecture
+- app module
+  - dependency via Koin
   - scoped ViewModels
   - ResourceRepository pattern
-  - ViewModel DI pattern
-- Jetpack paging library
-  - also with StateAdapter to handle edge cases
-- Navigator pattern
+  - ViewModel DI pattern 
+  - Jetpack paging library
+  - StateAdapter to handle paging edge cases
+  - Navigator pattern
