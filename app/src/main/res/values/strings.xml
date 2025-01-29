@@ -3,4 +3,11 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="tap_to_retry">Tap to Retry</string>
+
+    <string name="title">Title</string>
+    <string name="overview">Overview</string>
+    <string name="release_date">Release Date</string>
+    <string name="popularity">Popularity</string>
+    <string name="vote_count">Vote Count</string>
+    <string name="vote_average">Vote Average</string>
 </resources>

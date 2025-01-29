@@ -25,16 +25,19 @@ class DetailFragmentViewModel(
 
     init {
         viewModelScope.launch {
-            itemIdSF.flatMapLatest { model.trendingGet(it) }.collect {
-                _glideUrl.value = it?.let { resourceRepository.getGlideUrl(it.posterPath) }
-                //TODO the string building needs to go through resources
-                _title.value = "Title: ${it?.title}\n\n" +
-                        "Overview: ${it?.overview}\n\n" +
-                        "Release date: ${it?.releaseDate}\n\n" +
-                        "Popularity: ${it?.popularity}\n\n" +
-                        "Vote count: ${it?.voteCount}\n\n" +
-                        "Vote average: ${it?.voteAverage}"
-            }
+            itemIdSF.flatMapLatest { model.trendingGet(it) }.collect { rowItem -> rowItem?.run {
+                _glideUrl.value = resourceRepository.getGlideUrl(posterPath)
+                _title.value = listOf(
+                    title to R.string.title,
+                    overview to R.string.overview,
+                    releaseDate to R.string.release_date,
+                    popularity to R.string.popularity,
+                    voteCount to R.string.vote_count,
+                    voteAverage to R.string.vote_average
+                )
+                    .filter { it.first?.toString()?.isNotEmpty() == true }
+                    .joinToString("\n\n") { "${resourceRepository.getString(it.second)}: ${it.first}" }
+            } }
         }
     }
 
