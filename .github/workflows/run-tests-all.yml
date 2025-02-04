@@ -29,7 +29,7 @@ jobs:
       - name: Upload test results from tmdpApi module
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-api
           path: tmdbApi/build/test-results/testDebugUnitTest
 
       - name: Publish test results from tmdpApi module
@@ -46,7 +46,7 @@ jobs:
       - name: Upload test results from app module
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-app
           path: app/build/test-results/testDebugUnitTest
 
       - name: Publish test results from app module
