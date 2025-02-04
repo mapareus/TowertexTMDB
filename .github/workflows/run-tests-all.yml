@@ -23,19 +23,19 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run unit tests
-        run: ./gradlew test
+      - name: Run unit tests on tmdpApi module
+        run: ./gradlew testDebugUnitTest --project-dir tmdbApi
 
-      - name: Upload test results
+      - name: Upload test results from tmdpApi module
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: test-pokus
+          path: tmdbApi/build/test-results/testDebugUnitTest
 
-      - name: Publish test results
+      - name: Publish test results from tmdpApi module
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          files: test-pokus/*.xml
-          check_name: Unit Test Results
-          comment_title: Unit Test Results
+          files: tmdbApi/build/test-results/testDebugUnitTest/*.xml
+          check_name: Unit Test Results name
+          comment_title: Unit Test Results title
           update_comment: true
