@@ -30,12 +30,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: build/test-results/test/**/*.xml
+          path: app/build/test-results/test/**/*.xml
 
       - name: Publish test results
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          files: build/test-results/test/**/*.xml
+          files: app/build/test-results/test/**/*.xml
           check_name: Unit Test Results
           comment_title: Unit Test Results
           update_comment: true
