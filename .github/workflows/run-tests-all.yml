@@ -14,13 +14,45 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
+          distribution: 'temurin'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run unit tests
-        run: ./gradlew test
+      - name: Run unit tests on tmdpApi module
+        run: ./gradlew testDebugUnitTest --project-dir tmdbApi
+
+      - name: Upload test results from tmdpApi module
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-api
+          path: tmdbApi/build/test-results/testDebugUnitTest
+
+      - name: Publish test results from tmdpApi module
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: tmdbApi/build/test-results/testDebugUnitTest/*.xml
+          check_name: Unit Test Results of tmdbApi module
+          comment_title: Unit Test Results of tmdbApi module
+          update_comment: true
+
+      - name: Run unit tests on app module
+        run: ./gradlew testDebugUnitTest --project-dir app
+
+      - name: Upload test results from app module
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-app
+          path: app/build/test-results/testDebugUnitTest
+
+      - name: Publish test results from app module
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: app/build/test-results/testDebugUnitTest/*.xml
+          check_name: Unit Test Results of app module
+          comment_title: Unit Test Results of app module
+          update_comment: true
